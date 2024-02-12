@@ -1,0 +1,33 @@
+:root {
+  --white: #FFFFFF;
+  --gray-light: #EFEEF4;
+  --gray-main: #5C6970;
+  --gray-dark: 2E3438;
+  --blue-light: 3625FF;
+  --blue-dark: #0C0099;
+  --red: #D35151;
+  --xs-font: 500 12px/18px 'Inter', sans-serif;
+  --s-font: 500 14px/16px 'Inter', sans-serif;
+  --m-font: 600 15px/18px 'Inter', sans-serif;
+  --l-font: 500 18px/24px 'Inter', sans-serif;
+  --xl-font: 500 24px/28px 'Inter', sans-serif;
+  --default-letter-spacing-value: -0.02em;
+  --letter-spacing-value: -0.03em;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.page {
+  padding: 0;
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background-color: var(--white);
+  align-items: center;
+}
