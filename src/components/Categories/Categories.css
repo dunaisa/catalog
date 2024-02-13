@@ -1,0 +1,28 @@
+.categories-wrapper {
+  overflow: hidden;
+  border-radius: 4px;
+  width: calc(100% - 95px);
+}
+
+.categories-list {
+  display: flex;
+  list-style: none;
+  gap: 1px;
+  overflow-x: scroll;
+}
+
+.categories-list::-webkit-scrollbar {
+  display: none;
+}
+
+.categories-list__btn {
+  border: none;
+  outline: none;
+  background-color: var(--white);
+  padding: 5px 8px;
+  color: var(--gray-main);
+  font: var(--m-font);
+  letter-spacing: var(--letter-spacing-value);
+  white-space: nowrap;
+  cursor: pointer;
+}

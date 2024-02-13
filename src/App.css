@@ -28,6 +28,17 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: var(--white);
+  background-color: var(--gray-light);
   align-items: center;
+}
+
+.page__content {
+  min-height: 83.5vh;
+}
+
+.page__not-found {
+  color: var(--gray-main);
+  font: var(--xl-font);
+  letter-spacing: var(--default-letter-spacing-value);
+  text-align: center;
 }

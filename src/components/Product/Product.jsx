@@ -5,11 +5,8 @@ import { ReactComponent as CartIcon } from '../../img/icons/cart.svg';
 
 const Product = ({props}) => {
 
-  const string = 'An apple mobile which is nothing like apple An apple mobile which is nothing like apple An';
-
-  console.log(string.length)
-
-
+  // const string = 'An apple mobile which is nothing like apple An apple mobile which is nothing like apple An';
+  
   return (
     <li className='product'>
       <div className='product__sale-wrapper sale'>
@@ -25,7 +22,7 @@ const Product = ({props}) => {
         <h1 className='product__name'>{props.title}</h1>
         <div className='product__description'>
           <span className='product__description-text'>
-          {props.description.slice(0, 90)}
+          {props.description}
           <span className='product__read-more'>Read more</span>
           </span>
         </div>

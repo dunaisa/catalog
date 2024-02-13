@@ -1,0 +1,39 @@
+.menu {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 18px 14px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.menu-btn {
+  border: none;
+  outline: none;
+  background: var(--white);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menu__search-btn {
+  width: 28px;
+  height: 28px;
+  padding: 5px;
+}
+
+.menu__cart-btn {
+  padding: 5px 8px 5px 6px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: var(--blue-light);
+  font: var(--m-font);
+  letter-spacing: var(--letter-spacing-value);
+}
+
+.menu__cart-btn-icon {
+  fill: var(--blue-light);
+}
+
