@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import './App.css';
 import ProductList from './components/ProductList/ProductList';
 import Menu from './components/Menu/Menu';
@@ -10,6 +11,7 @@ const App = () => {
   const [categories, setCategories] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isQueryValid, setQueryValid] = useState(true);
+
   // const [currentPage, setCurrentPage] = useState(1);
   // const [fetching, setFetching] = useState(true);
 
@@ -19,6 +21,43 @@ const App = () => {
   //   }
 
   // }
+
+
+  // const location = useLocation(); 
+  // const searchParam = new URLSearchParams(location.search).get('category');
+
+  // const [searchParams, setSearchParams] = useState(searchParam);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    
+    const queryParam = searchParams.get('category');
+
+    if (queryParam !== 'all') {
+    fetch(`https://dummyjson.com/products/category/${queryParam}`)
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data.products)
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    }
+
+    if (queryParam === 'all' || queryParam === null) {
+      console.log(queryParam)
+      fetch('https://dummyjson.com/products')
+        .then(res => res.json())
+        .then(data => {
+          setProducts(data.products)
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+  }, [searchParams])
+
 
   useEffect(() => {
     fetch('https://dummyjson.com/products/categories')
@@ -83,6 +122,7 @@ const App = () => {
         inputValue={searchQuery}
         setInputValue={setSearchQuery}
         isQueryValid={isQueryValid}
+        setSearchParams={setSearchParams}
         />
       <main className='page__content'>
 

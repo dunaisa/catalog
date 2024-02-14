@@ -5,7 +5,7 @@ import { ReactComponent as CartIcon } from '../../img/icons/cart.svg';
 import Search from '../Search/Search';
 import Categories from '../Categories/Categories';
 
-const Menu = ({categories, inputValue, setInputValue, isQueryValid}) => {
+const Menu = ({ categories, inputValue, setInputValue, isQueryValid, setSearchParams }) => {
 
   const [isVisible, setVisible] = useState(false);
 
@@ -24,9 +24,9 @@ const Menu = ({categories, inputValue, setInputValue, isQueryValid}) => {
       <button className='menu-btn menu__search-btn' onClick={openSeashInput}>
         <img src={SearchIcon} alt="Search icon" className='menu__search-btn-icon'/>
       </button>
-      <Search isVisible={isVisible} closeSeashInput={closeSeashInput} inputValue={inputValue} setInputValue={setInputValue} isQueryValid={isQueryValid} />
+      <Search isVisible={isVisible} closeSeashInput={closeSeashInput} inputValue={inputValue} setInputValue={setInputValue} isQueryValid={isQueryValid}  />
 
-      <Categories categories={categories}/>
+      <Categories categories={categories} setSearchParams={setSearchParams} />
 
       <button className='menu-btn menu__cart-btn'>
         <CartIcon className='menu__cart-btn-icon'/>

@@ -15,14 +15,31 @@
   display: none;
 }
 
-.categories-list__btn {
-  border: none;
-  outline: none;
-  background-color: var(--white);
+.categories-list__link {
+  display: block;
   padding: 5px 8px;
+  text-decoration: none;
+  background-color: var(--white);
   color: var(--gray-main);
   font: var(--m-font);
   letter-spacing: var(--letter-spacing-value);
   white-space: nowrap;
-  cursor: pointer;
+  text-align: center;
+  cursor: hand;
+}
+
+.categories-list__link.select {
+  background-color: var(--blue-light);
+  color: var(--white);
+}
+
+.select.categories-list__link::before {
+  content: '';
+  display: inline-block;
+  background-image: url(../../img/icons/link-point.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 6px;
+  height: 10px;
+  margin-right: 4px;
 }
