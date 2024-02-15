@@ -12,28 +12,18 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isQueryValid, setQueryValid] = useState(true);
 
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [fetching, setFetching] = useState(true);
-
-  // const scrollHandler = (e) => {
-  //   if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
-  //     setFetching(true)
-  //   }
-
-  // }
-
-
-  // const location = useLocation(); 
-  // const searchParam = new URLSearchParams(location.search).get('category');
-
-  // const [searchParams, setSearchParams] = useState(searchParam);
-
   const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
+  // const [currentPage, setCurrentPage] = useState(1);
+  const [page, setPage] = useState(0);
+  const [fetching, setFetching] = useState(true);
+  const [isLoading, setLoading] = useState(false);
     
-    const queryParam = searchParams.get('category');
 
+  useEffect(() => {
+
+    const queryParam = searchParams.get('category');
+    
     if (queryParam !== 'all') {
     fetch(`https://dummyjson.com/products/category/${queryParam}`)
       .then(res => res.json())
@@ -44,20 +34,29 @@ const App = () => {
         console.log(err.message);
       });
     }
+    // if (queryParam === 'all' || queryParam === null || searchQuery.length < 3)
 
-    if (queryParam === 'all' || queryParam === null) {
-      console.log(queryParam)
-      fetch('https://dummyjson.com/products')
+    if (fetching && page < 101) {
+      console.log('fetching')
+      console.log(page)
+      fetch(`https://dummyjson.com/products?limit=10&skip=${page}`)
         .then(res => res.json())
         .then(data => {
-          setProducts(data.products)
+          setLoading(true)
+          setTimeout(() => {
+            setProducts([...products, ...data.products])
+            setLoading(false)
+            setPage(prev => prev + 10)
+          }, 2000)
         })
         .catch((err) => {
           console.log(err.message);
+        })
+        .finally(() => {
+          setFetching(false)
         });
     }
-  }, [searchParams])
-
+  }, [searchParams, searchQuery, fetching, page, products])
 
   useEffect(() => {
     fetch('https://dummyjson.com/products/categories')
@@ -85,19 +84,20 @@ const App = () => {
     
   }, [searchQuery]);
 
-  useEffect(() => {
-    if (searchQuery.length < 2) {
-      fetch('https://dummyjson.com/products')
-      .then(res => res.json())
-      .then(data => {
-        setProducts(data.products)
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-    }
+  // useEffect(() => {
+  //   if (searchQuery.length < 3) {
+  //     fetch(`https://dummyjson.com/products?limit=${limit}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setProducts([data.products])
+
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  //   }
     
-  }, [searchQuery]);
+  // }, [searchQuery]);
 
   useEffect(() => {
     if (searchQuery.length === 0 || searchQuery.length > 2) {
@@ -107,13 +107,18 @@ const App = () => {
     }    
   }, [searchQuery]);
 
-  // useEffect(() => {
-  //   document.addEventListener('scroll', scrollHandler)
-  //   return function() {
-  //     document.removeEventListener('scroll', scrollHandler)
-  //   }
+  const scrollHandler = (e) => {
+    if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
+      setFetching(true)
+    }
+  }
 
-  // }, [])
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler)
+    return function() {
+      document.removeEventListener('scroll', scrollHandler)
+    }
+  }, [])
 
   return (
     <div className="page">
@@ -127,11 +132,13 @@ const App = () => {
       <main className='page__content'>
 
         {
-          products.length === 0 ? <span className='page__not-found'>Nothing was found, try changing your query.</span> : <ProductList products={products}/>
+          !isLoading && products.length === 0 ? <span className='page__not-found'>Nothing was found, try changing your query.</span> : <ProductList products={products} />
 
-        }        
+        }
 
       </main>
+
+      {isLoading && <div>загрузка...</div>}
 
       <Footer />
     </div>

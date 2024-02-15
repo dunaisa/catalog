@@ -1,7 +1,7 @@
 import './ProductList.css';
 import Product from '../Product/Product';
 
-const ProductList = ({products}) => {
+const ProductList = ({products, page}) => {
 
   return (
     <ul className='product-list'>
